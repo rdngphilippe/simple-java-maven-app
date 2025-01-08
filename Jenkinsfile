@@ -1,10 +1,20 @@
 pipeline {
   agent any
+  environment {
+    SONAR_MAVEN_GOAL = 'clean install sonar:sonar'
+  }
   stages{    
       stage('Build') {
         steps {
           echo 'Build is running ...'
           sh 'mvn -B -DspiTests clean package'
+        }
+      }
+      stage('SonarQube Analysis'){
+        steps{
+          withSonarQubeEnv('SonarQube'){
+            sh "mvn ${SONAR_MAVEN_GOAL}"
+          }
         }
       }
       stage('Test'){
