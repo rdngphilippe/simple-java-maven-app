@@ -3,11 +3,13 @@ pipeline {
   stages{    
       stage('Build') {
         steps {
+          echo 'Build is running ...'
           sh 'mvn -B -DspiTests clean package'
         }
       }
       stage('Test'){
         steps {
+        echo 'Test is running'
           sh 'mvn test'
         }
         post {
@@ -18,6 +20,7 @@ pipeline {
       }
       stage('Deliver'){
         steps{
+          echo 'Deliver is running'
           sh './jenkins/scripts/deliver.sh'
         }
       }
