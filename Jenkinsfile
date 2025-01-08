@@ -12,8 +12,10 @@ pipeline {
       }
       stage('SonarQube Analysis'){
         steps{
-          withSonarQubeEnv('SonarQube'){
-            sh "mvn ${SONAR_MAVEN_GOAL}"
+          script{
+              withSonarQubeEnv('SonarQube'){
+              sh "mvn ${SONAR_MAVEN_GOAL}"
+            }
           }
         }
       }
